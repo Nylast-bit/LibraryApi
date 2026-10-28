@@ -25,4 +25,25 @@ public static class BookMappings
             book.PublishDate,
             authors.Select(a => a.ToSummaryResponse()).ToList()
         );
+
+    public static Book ToEntity(this CreateBookRequest request) =>
+        new()
+        {
+            Title = request.Title,
+            Description = request.Description,
+            PageCount = request.PageCount,
+            Excerpt = request.Excerpt,
+            PublishDate = request.PublishDate
+        };
+
+    public static Book ToEntity(this UpdateBookRequest request, int id) =>
+        new()
+        {
+            Id = id,
+            Title = request.Title,
+            Description = request.Description,
+            PageCount = request.PageCount,
+            Excerpt = request.Excerpt,
+            PublishDate = request.PublishDate
+        };
 }
