@@ -17,7 +17,7 @@ dotnet build
 dotnet run --project src/LibraryApi.Api
 ```
 
-La consola muestra la URL (`Now listening on: http://localhost:XXXX`). La documentación interactiva está en `http://localhost:XXXX/scalar`.
+La consola muestra la URL (`Now listening on: http://localhost:5053`). La documentación interactiva está en `http://localhost:5053/scalar`.
 
 La URL de la API externa se configura en `src/LibraryApi.Api/appsettings.json`:
 
@@ -64,3 +64,18 @@ Las dependencias apuntan hacia adentro: `Api → Application → Domain` e `Infr
 - **Número de libros por autor:** en FakeRestAPI cada registro de autor apunta a un solo libro, por lo que el conteo se calcula agrupando por nombre y apellido y contando los `BookId` distintos. Para un autor individual se consulta el listado completo, ya que la API externa no ofrece un endpoint de conteo.
 - **FakeRestAPI no persiste:** POST, PUT y DELETE responden correctamente pero no guardan cambios. La API devuelve lo que responde el servicio externo y el frontend actualiza su estado local.
 - **HttpClient tipado** registrado con `AddHttpClient`, `CancellationToken` en todas las capas y mapeo manual con métodos de extensión (sin AutoMapper).
+
+## Ejecutar todo con Docker
+
+Clona ambos repositorios en la misma carpeta:
+
+```bash
+git clone https://github.com/Nylast-bit/LibraryApi.git
+git clone https://github.com/Nylast-bit/libraryfrontend.git
+cd LibraryApi
+docker compose up --build
+```
+
+- Frontend: http://localhost:3000
+- API: http://localhost:5053/api/books
+- Documentación: http://localhost:5053/scalar
